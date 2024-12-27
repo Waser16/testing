@@ -20,9 +20,9 @@
 <main class="container">
     <h2>Ингредиенты</h2>
     <ul class="list-group">
-        {% for item in ingredients %}
+        {% for ingredient in ingredients %}
         <li class="list-group-item bg-secondary text-white">
-            {{ item.ingredient.name }} - {{ item.ingredient.weight }} г ({{ item.ingredient.cost }} руб)
+            {{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.measure_unit.short_name}}
         </li>
         {% empty %}
         <li class="list-group-item bg-secondary text-white">Ингредиентов нет</li>

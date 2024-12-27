@@ -3,32 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Информация о нашем проекте рецептов">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <title>О нас | Наши рецепты</title>
+    <title>О нас - Рецептор</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .recipe-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #343a40;
+            border: 1px solid #495057;
+            border-radius: 5px;
+        }
+        .recipe-item a {
+            color: #f8f9fa;
+            text-decoration: none;
+        }
+        .recipe-item:hover {
+            background-color: #495057;
+        }
+    </style>
 </head>
-<body class="bg-dark text-light">
-<header class="bg-secondary py-4">
+<body class="bg-dark text-white">
+<header class="bg-dark text-light py-3">
     <div class="container d-flex justify-content-between align-items-center">
-        <a href="/" class="text-light text-decoration-none fs-4">Наши Рецепты</a>
-        <nav class="d-flex">
-            <a href="/" class="btn btn-light me-3">Главная</a>
-            <a href="/about" class="btn btn-outline-light">О нас</a>
+        <h2 class="mb-0">О нас</h2>
+        <nav>
+            <a href="/" class="btn btn-primary mx-2">Главная</a>
+            <a href="/about" class="btn btn-secondary mx-2">О нас</a>
         </nav>
     </div>
 </header>
 
-<main class="container mt-5">
-    <div class="text-center">
-        <h1 class="display-4 mb-3">О нашем проекте</h1>
-        <p class="fs-5">Мы делимся лучшими рецептами, чтобы вдохновить вас на кулинарные подвиги.</p>
-    </div>
+<main class="container">
+    <h2 class="my-4">О нашем проекте</h2>
+    <p class="lead">Добро пожаловать на сайт "Рецептор" — ваш надежный источник вкусных и разнообразных кулинарных идей! Мы предлагаем множество рецептов, которые подойдут для любого случая, от простых до сложных. Все рецепты в нашем проекте — проверены временем и созданы с любовью к кулинарии!</p>
 </main>
 
-<footer class="bg-secondary py-3 mt-5">
+<footer class="bg-dark text-light py-4">
     <div class="container text-center">
-        <p class="mb-0">&copy; 2024 Наши Рецепты. Все права защищены.</p>
+        <p>&copy; 2024 Рецептор. Все права защищены.</p>
     </div>
 </footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -61,6 +61,7 @@ class Ingredient(models.Model):
         ]
     )
     cost = models.FloatField(
+        # null=True,
         validators=[
             MinValueValidator(
                 limit_value=1,

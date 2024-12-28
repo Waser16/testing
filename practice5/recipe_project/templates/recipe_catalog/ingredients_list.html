@@ -15,7 +15,7 @@
             <div class="ingredient-item">
                 <p>{{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.measure_unit.short_name }} ({{ ingredient.weight }} г)</p>
                 {% if user.is_authenticated and ingredient.author == user %}
-                    <a href="{% url 'recipe_catalog:ingredient_list' %}" class="btn btn-warning">Редактировать</a>
+                    <a href="{% url 'recipe_catalog:update_ingredient' ingredient.pk  %}" class="btn btn-warning">Редактировать</a>
                     <a href="{% url 'recipe_catalog:delete_ingredient' ingredient.pk %}" class="btn btn-warning">Удалить</a>
                 {% endif %}
             </div>

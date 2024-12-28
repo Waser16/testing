@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -104,5 +105,18 @@ def delete_ingredient(request, pk):
         return redirect('recipe_catalog:ingredient_list')
     else:
         return redirect('recipe_catalog:ingredient_list')
+
+@login_required
+def update_ingredient(request, pk):
+    instance = get_object_or_404(Ingredient, pk=pk)
+    if request.user != instance.author:
+        raise PermissionDenied("Вы не можете редактировать этот ингредиент")
+    form = IngredientForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('recipe_catalog:ingredient_list')
+    context = {'form': form}
+    return render(request, 'recipe_catalog/update_ingredient.html', context)
+
 
 

@@ -9,7 +9,8 @@ from .views import (
 	custom_logout,register,
 	ingredient_list,
 	add_ingredient,
-	delete_ingredient
+	delete_ingredient,
+	update_ingredient
 )
 
 app_name = 'recipe_catalog'
@@ -26,5 +27,5 @@ urlpatterns = [
 	path('ingredients/', ingredient_list, name='ingredient_list'),
     path('ingredient/add/', add_ingredient, name='add_ingredient'),
 	path('ingredient/delete/<int:pk>/', delete_ingredient, name='delete_ingredient'),
-    # path('ingredient/edit/<int:id>/', views.edit_ingredient, name='edit_ingredient'),
+    path('ingredient/update/<int:pk>/', update_ingredient, name='update_ingredient'),
 ]

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная - Рецепты</title>
+    <title>{% block title %}Рецептор{% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .recipe-item {
@@ -34,23 +34,14 @@
 </header>
 
 <main class="container">
-    <h2 class="my-4">Все рецепты</h2>
-    <div class="list-group">
-        {% for recipe in recipes %}
-        <div class="recipe-item">
-            <a href="{% url 'recipe_catalog:recipe_detail' recipe.id %}">{{ recipe.name }}</a>
-        </div>
-        {% empty %}
-        <div class="recipe-item">
-            Нет рецептов
-        </div>
-        {% endfor %}
-    </div>
+    {% block content %}
+    <!-- Основной контент страницы будет вставляться сюда -->
+    {% endblock %}
 </main>
 
 <footer class="bg-dark text-light py-4">
     <div class="container text-center">
-        <p>&copy; 2024 Рецепты. Все права защищены.</p>
+        <p>&copy; 2024 Рецептор. Все права защищены.</p>
     </div>
 </footer>
 

@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from recipe_catalog.models import Ingredient, Recipe, MeasureUnit, RecipeIngredient
@@ -100,5 +101,17 @@ class TestOneDb(TestCase):
         for name in titles:
             with self.subTest(msg=f'Название {name[2]}'):
                 self.assertEqual(name[0], name[1])
+
+    def test_creation_ingredient_with_invalid_amount(self):
+        ingredient_invalid_amount = Ingredient(
+            name="Оливковое масло",
+            measure_unit=self.gram_unit,
+            amount=-20,
+            cost=10.
+        )
+        with self.assertRaises(ValidationError) as error:
+            ingredient_invalid_amount.full_clean()
+        self.assertIn('Количество должно быть не больше 1', error.exception.message_dict['amount'])
+
 
 

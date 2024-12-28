@@ -1,35 +1,23 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ recipe.name }} - Рецепт</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+{% extends "base.html" %}
 
-<body class="bg-dark text-white">
-<header class="bg-dark text-light py-3">
-    <div class="container d-flex justify-content-between align-items-center">
-        <h1 class="text-center">{{ recipe.name }}</h1>
-        <nav>
-            <a href="/" class="btn btn-primary mx-2">Главная</a>
-            <a href="/about" class="btn btn-secondary mx-2">О нас</a>
-        </nav>
-    </div>
-</header>
-<main class="container">
-    <h2>Ингредиенты</h2>
-    <ul class="list-group">
-        {% for ingredient in ingredients %}
-        <li class="list-group-item bg-secondary text-white">
-            {{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.measure_unit.short_name}}
-        </li>
-        {% empty %}
-        <li class="list-group-item bg-secondary text-white">Ингредиентов нет</li>
-        {% endfor %}
-    </ul>
-</main>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% block title %}{{ recipe.name }} - Рецепты{% endblock %}
+
+{% block content %}
+<h2 class="my-4">{{ recipe.name }}</h2>
+
+<h4>Ингредиенты:</h4>
+<ul>
+    {% for ingredient in ingredients %}
+    <li>
+        {{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.measure_unit.short_name }}
+    </li>
+    {% empty %}
+    <li>Нет ингредиентов</li>
+    {% endfor %}
+</ul>
+
+<h4>Стоимость и вес:</h4>
+<p>Общая стоимость: {{ cost }} руб.</p>
+<p>Общий вес: {{ weight }} руб.</p>
+
+{% endblock %}

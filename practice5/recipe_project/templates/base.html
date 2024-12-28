@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Рецептор{% endblock %}</title>
+    <title>{% block title %}Рецепты{% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .recipe-item {
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #343a40;
-            border: 1px solid #495057;
-            border-radius: 5px;
-        }
-        .recipe-item a {
-            color: #f8f9fa;
-            text-decoration: none;
-        }
-        .recipe-item:hover {
-            background-color: #495057;
-        }
-    </style>
+    .recipe-item {
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #343a40;
+        border: 1px solid #495057;
+        border-radius: 5px !important; /* Применяем !important */
+    }
+    .recipe-item a {
+        color: #f8f9fa;
+        text-decoration: none;
+    }
+    .recipe-item:hover {
+        background-color: #495057;
+    }
+</style>
 </head>
 <body class="bg-dark text-white">
 <header class="bg-dark text-light py-3">
@@ -29,19 +29,25 @@
         <nav>
             <a href="/" class="btn btn-primary mx-2">Главная</a>
             <a href="/about" class="btn btn-secondary mx-2">О нас</a>
+
+            {% if user.is_authenticated %}
+                <span class="text-light">Привет, {{ user.username }}!</span>
+                <a href="/logout" class="btn btn-danger mx-2">Выйти</a>
+            {% else %}
+                <a href="/login" class="btn btn-success mx-2">Залогиниться</a>
+                <a href="/register" class="btn btn-warning mx-2">Зарегистрироваться</a>
+            {% endif %}
         </nav>
     </div>
 </header>
 
 <main class="container">
-    {% block content %}
-    <!-- Основной контент страницы будет вставляться сюда -->
-    {% endblock %}
+    {% block content %}{% endblock %}
 </main>
 
 <footer class="bg-dark text-light py-4">
     <div class="container text-center">
-        <p>&copy; 2024 Рецептор. Все права защищены.</p>
+        <p>&copy; 2024 Рецепты. Все права защищены.</p>
     </div>
 </footer>
 

@@ -1,7 +1,9 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
+from .forms import CustomUserCreationForm
 from .models import Recipe
 
 
@@ -44,7 +46,31 @@ def form_user_test(request):
     return render(request, template_name, context)
 
 
-# def ingredient(request):
-#     """Форма для ингредиентов"""
-#     template_name = 'recipe_catalog/ingredient_form.html'
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('/')  # Перенаправление на главную страницу или любую другую
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'login.html', {'form': form})
+
+def custom_logout(request):
+    logout(request)  # Завершаем сессию пользователя
+    # Дополнительные действия, например, вывод сообщения
+    return redirect('/')  # Перенаправление на главную страницу или на другую
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('recipe_catalog:index')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'recipe_catalog/register.html', {'form': form})
 

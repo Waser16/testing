@@ -32,7 +32,7 @@ class MeasureUnit(models.Model):
     )
 
     def __str__(self):
-        return f"{self.name} ({self.short_name}) - {self.grams_in_unit}"
+        return f"{self.name} ({self.short_name}) - равен {self.grams_in_unit} грамм"
 
 
 class Ingredient(models.Model):

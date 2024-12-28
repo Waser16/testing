@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container">
+    <h2 class="my-4">Все ингредиенты</h2>
+
+    {% if user.is_authenticated %}
+        <div class="mb-3">
+            <a href="{% url 'recipe_catalog:add_ingredient' %}" class="btn btn-success">Добавить ингредиент</a>
+        </div>
+    {% endif %}
+
+    <div class="list-group">
+        {% for ingredient in ingredients %}
+            <div class="ingredient-item">
+                <p>{{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.measure_unit.short_name }} ({{ ingredient.weight }} г)</p>
+                {% if user.is_authenticated and ingredient.author == user %}
+                    <a href="{% url 'recipe_catalog:ingredient_list' %}" class="btn btn-warning">Редактировать</a>
+                    <a href="{% url 'recipe_catalog:delete_ingredient' ingredient.pk %}" class="btn btn-warning">Удалить</a>
+                {% endif %}
+            </div>
+        {% empty %}
+            <div class="ingredient-item">
+                Нет ингредиентов
+            </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

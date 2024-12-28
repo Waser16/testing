@@ -1,10 +1,12 @@
+from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import CustomUserCreationForm
-from .models import Recipe
+from .forms import CustomUserCreationForm, IngredientForm
+from .models import Recipe, Ingredient
 
 
 def about(request):
@@ -73,4 +75,34 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'recipe_catalog/register.html', {'form': form})
+
+@login_required
+def ingredient_list(request):
+    template_name = 'recipe_catalog/ingredients_list.html'
+    ingredients = Ingredient.objects.all()
+    return render(request, template_name, {'ingredients': ingredients})
+
+def add_ingredient(request):
+    template = 'recipe_catalog/add_ingredient.html'
+    form = IngredientForm(request.POST or None)
+    if form.is_valid():
+        ingredient = form.save(commit=False)
+        ingredient.author = request.user
+        ingredient.save()
+        messages.success(request, 'Ингредиент был успешно добавлен')
+        return redirect('recipe_catalog:ingredient_list')
+    context = {'form': form}
+    return render(request, template, context)
+
+
+@login_required
+def delete_ingredient(request, pk):
+    ingredient = get_object_or_404(Ingredient, pk=pk)
+
+    if request.user == ingredient.author:
+        ingredient.delete()
+        return redirect('recipe_catalog:ingredient_list')
+    else:
+        return redirect('recipe_catalog:ingredient_list')
+
 
